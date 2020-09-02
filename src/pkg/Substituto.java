@@ -9,4 +9,14 @@ public class Substituto extends Professor {
         this.valorHoraAula = valorHoraAula;
         this.qtdHorasTrabalhadasMensal = qtdHorasTrabalhadasMensal;
     }
+
+    @Override
+    public double calcularSalario() {
+        return qtdHorasTrabalhadasMensal * valorHoraAula;
+    }
+
+    @Override
+    public double calcularSalario(double adicional, double descontos) {
+        return qtdHorasTrabalhadasMensal * valorHoraAula + adicional - descontos;
+    }
 }
