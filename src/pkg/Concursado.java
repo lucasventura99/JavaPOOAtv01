@@ -1,9 +1,9 @@
 package pkg;
 
 public class Concursado extends Professor {
-    private final double salarioBase;
-    private final double retribuicaoTitulacao;
-    private final double planoSaude;
+    private double salarioBase;
+    private double retribuicaoTitulacao;
+    private double planoSaude;
 
 
     public Concursado(int matricula, String nome, String titulacao, double salarioBase, double planoSaude) throws ProfessorException {

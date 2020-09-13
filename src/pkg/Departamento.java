@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class Departamento {
-    private final String nome;
-    private final String area;
+    private String nome;
+    private String area;
     private ArrayList<Professor> listaProfessor;
 
     public Departamento(String nome, String area) {

@@ -1,10 +1,10 @@
 package pkg;
 
 public class Endereco {
-    private final String logradouro;
-    private final int numero;
-    private final String complemento;
-    private final Cidade cidade;
+    private String logradouro;
+    private int numero;
+    private String complemento;
+    private Cidade cidade;
 
     public Endereco(String logradouro, int numero, String complemento, Cidade cidade) {
         this.logradouro = logradouro;
