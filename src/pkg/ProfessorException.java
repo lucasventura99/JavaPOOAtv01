@@ -1,9 +1,6 @@
 package pkg;
 
 public class ProfessorException extends Exception {
-    public ProfessorException() {
-
-    }
 
     public ProfessorException(String message) {
         super(message);

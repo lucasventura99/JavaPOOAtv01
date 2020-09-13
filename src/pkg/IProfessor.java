@@ -1,7 +1,7 @@
 package pkg;
 
 public interface IProfessor {
-    double calcularSalario();
+    double calcularSalario() throws ProfessorException;
 
-    double calcularSalario(double adicional, double descontos);
+    double calcularSalario(double adicional, double descontos) throws ProfessorException;
 }

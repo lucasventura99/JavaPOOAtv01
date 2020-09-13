@@ -37,12 +37,12 @@ public class Professor implements IProfessor {
     }
 
     @Override
-    public double calcularSalario() {
+    public double calcularSalario() throws ProfessorException {
         return 0;
     }
 
     @Override
-    public double calcularSalario(double adicional, double descontos) {
+    public double calcularSalario(double adicional, double descontos) throws ProfessorException {
         return 0;
     }
 }

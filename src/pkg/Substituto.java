@@ -11,12 +11,12 @@ public class Substituto extends Professor {
     }
 
     @Override
-    public double calcularSalario() {
+    public double calcularSalario() throws ProfessorException {
         return qtdHorasTrabalhadasMensal * valorHoraAula;
     }
 
     @Override
-    public double calcularSalario(double adicional, double descontos) {
+    public double calcularSalario(double adicional, double descontos) throws ProfessorException {
         return qtdHorasTrabalhadasMensal * valorHoraAula + adicional - descontos;
     }
 }
