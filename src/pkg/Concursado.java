@@ -16,21 +16,13 @@ public class Concursado extends Professor {
     private double calcularRetribuicao() throws ProfessorException {
         double retribuicao = 0;
         try {
-            switch (this.getTitulacao()) {
-                case "GRADUADO":
-                    break;
-                case "ESPECIALISTA":
-                    retribuicao = salarioBase * 0.1;
-                    break;
-                case "MESTRE":
-                    retribuicao = salarioBase * 0.15;
-                    break;
-                case "DOUTOR":
-                    retribuicao = salarioBase * 0.4;
-                    break;
-                default:
-                    throw new ProfessorException("A titulação não foi encontrada");
-            }
+            retribuicao = switch (this.getTitulacao()) {
+                case "GRADUADO" -> salarioBase;
+                case "ESPECIALISTA" -> salarioBase * 0.1;
+                case "MESTRE" -> salarioBase * 0.15;
+                case "DOUTOR" -> salarioBase * 0.4;
+                default -> throw new ProfessorException("A titulação não foi encontrada");
+            };
         } catch (ProfessorException e) {
             e.printStackTrace();
         }
@@ -39,11 +31,17 @@ public class Concursado extends Professor {
 
     @Override
     public double calcularSalario() throws ProfessorException {
+        if (salarioBase < 0 || retribuicaoTitulacao < 0 || planoSaude < 0) {
+            throw new ProfessorException("Os valores devem ser positivos");
+        }
         return salarioBase + retribuicaoTitulacao + planoSaude;
     }
 
     @Override
     public double calcularSalario(double adicional, double descontos) throws ProfessorException {
+        if (salarioBase < 0 || retribuicaoTitulacao < 0 || planoSaude < 0 || adicional< 0 || descontos < 0) {
+            throw new ProfessorException("Os valores devem ser positivos");
+        }
         return salarioBase + retribuicaoTitulacao + planoSaude + adicional - descontos;
     }
 }
