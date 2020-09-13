@@ -25,22 +25,33 @@ public class Concursado extends Professor {
             };
         } catch (ProfessorException e) {
             e.printStackTrace();
+            System.exit(3);
         }
         return retribuicao;
     }
 
     @Override
     public double calcularSalario() throws ProfessorException {
-        if (salarioBase < 0 || retribuicaoTitulacao < 0 || planoSaude < 0) {
-            throw new ProfessorException("Os valores devem ser positivos");
+        try {
+            if (salarioBase < 0 || retribuicaoTitulacao < 0 || planoSaude < 0) {
+                throw new ProfessorException("Os valores devem ser positivos");
+            }
+        } catch (ProfessorException e) {
+            e.printStackTrace();
+            System.exit(4);
         }
         return salarioBase + retribuicaoTitulacao + planoSaude;
     }
 
     @Override
     public double calcularSalario(double adicional, double descontos) throws ProfessorException {
-        if (salarioBase < 0 || retribuicaoTitulacao < 0 || planoSaude < 0 || adicional< 0 || descontos < 0) {
-            throw new ProfessorException("Os valores devem ser positivos");
+        try {
+            if (salarioBase < 0 || retribuicaoTitulacao < 0 || planoSaude < 0 || adicional < 0 || descontos < 0) {
+                throw new ProfessorException("Os valores devem ser positivos");
+            }
+        } catch (ProfessorException e) {
+            e.printStackTrace();
+            System.exit(5);
         }
         return salarioBase + retribuicaoTitulacao + planoSaude + adicional - descontos;
     }
