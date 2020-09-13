@@ -4,12 +4,13 @@ public class Professor implements IProfessor {
     private int matricula;
     private String nome;
     private String titulacao;
+    private Endereco endereco;
 
-
-    public Professor(int matricula, String nome, String titulacao) {
+    public Professor(int matricula, String nome, String titulacao, Endereco endereco) {
         this.matricula = matricula;
         this.nome = nome;
         this.titulacao = titulacao;
+        this.endereco = endereco;
     }
 
     public int getMatricula() {
@@ -34,6 +35,14 @@ public class Professor implements IProfessor {
 
     public void setTitulacao(String titulacao) {
         this.titulacao = titulacao;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
     @Override

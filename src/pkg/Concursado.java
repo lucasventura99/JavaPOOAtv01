@@ -6,10 +6,34 @@ public class Concursado extends Professor {
     private double planoSaude;
 
 
-    public Concursado(int matricula, String nome, String titulacao, double salarioBase, double planoSaude) throws ProfessorException {
-        super(matricula, nome, titulacao);
+    public Concursado(int matricula, String nome, String titulacao, Endereco endereco, double salarioBase, double planoSaude) throws ProfessorException {
+        super(matricula, nome, titulacao, endereco);
         this.salarioBase = salarioBase;
         this.retribuicaoTitulacao = this.calcularRetribuicao();
+        this.planoSaude = planoSaude;
+    }
+
+    public double getSalarioBase() {
+        return salarioBase;
+    }
+
+    public void setSalarioBase(double salarioBase) {
+        this.salarioBase = salarioBase;
+    }
+
+    public double getRetribuicaoTitulacao() {
+        return retribuicaoTitulacao;
+    }
+
+    public void setRetribuicaoTitulacao(double retribuicaoTitulacao) {
+        this.retribuicaoTitulacao = retribuicaoTitulacao;
+    }
+
+    public double getPlanoSaude() {
+        return planoSaude;
+    }
+
+    public void setPlanoSaude(double planoSaude) {
         this.planoSaude = planoSaude;
     }
 
@@ -50,6 +74,7 @@ public class Concursado extends Professor {
                 throw new ProfessorException("Os valores devem ser positivos");
             }
         } catch (ProfessorException e) {
+
             e.printStackTrace();
             System.exit(5);
         }

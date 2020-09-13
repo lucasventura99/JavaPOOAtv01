@@ -4,7 +4,17 @@ import javax.swing.*;
 
 public class RelatorioProfessor {
     public void imprimirFolha(Professor professor) {
-        JOptionPane.showMessageDialog(null, professor,
-                "Lista de Professores", JOptionPane.INFORMATION_MESSAGE);
+        try {
+            JOptionPane.showMessageDialog(null,
+                    "Nome: " + professor.getNome() +
+                            "\nTitulação: " + professor.getTitulacao() +
+                            "\nMatricula: " + professor.getMatricula() +
+                            "\nSalário: " + professor.calcularSalario(),
+                    "Lista de Professores", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (ProfessorException e) {
+            e.printStackTrace();
+            System.exit(6);
+        }
     }
 }

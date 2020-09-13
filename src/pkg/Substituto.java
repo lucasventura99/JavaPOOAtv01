@@ -4,8 +4,8 @@ public class Substituto extends Professor {
     private double valorHoraAula;
     private double qtdHorasTrabalhadasMensal;
 
-    public Substituto(int matricula, String nome, String titulacao, double valorHoraAula, double qtdHorasTrabalhadasMensal) {
-        super(matricula, nome, titulacao);
+    public Substituto(int matricula, String nome, String titulacao, Endereco endereco, double valorHoraAula, double qtdHorasTrabalhadasMensal) {
+        super(matricula, nome, titulacao, endereco);
         this.valorHoraAula = valorHoraAula;
         this.qtdHorasTrabalhadasMensal = qtdHorasTrabalhadasMensal;
     }
@@ -16,6 +16,14 @@ public class Substituto extends Professor {
 
     public double getQtdHorasTrabalhadasMensal() {
         return qtdHorasTrabalhadasMensal;
+    }
+
+    public void setValorHoraAula(double valorHoraAula) {
+        this.valorHoraAula = valorHoraAula;
+    }
+
+    public void setQtdHorasTrabalhadasMensal(double qtdHorasTrabalhadasMensal) {
+        this.qtdHorasTrabalhadasMensal = qtdHorasTrabalhadasMensal;
     }
 
     @Override
