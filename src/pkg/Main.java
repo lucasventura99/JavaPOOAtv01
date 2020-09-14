@@ -6,54 +6,37 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-
             int matricula1 = getMatricula();
             String nome1 = getNome();
             String titulacao1 = getTitulacao();
-            String log1 = getLogradouro();
-            int n1 = getNumero();
-            String comp1 = getComplemento();
-            Cidade cid1 = getCidade();
-            double HA = getValorHoraAula();
-            double Htrab = getQtdHoraTrabalhadas();
-
-            Departamento departamento1 = getDepartamento();
-
-            Endereco endereco1 = new Endereco(
-                    log1,
-                    n1,
-                    comp1,
-                    cid1);
+            Endereco endereco1 = getEndereco();
+            double hora1 = getValorHoraAula();
+            double trabalho1 = getQtdHoraTrabalhadas();
 
             int matricula2 = getMatricula();
             String nome2 = getNome();
             String titulacao2 = getTitulacao();
-            String log2 = getLogradouro();
-            int n2 = getNumero();
-            String comp2 = getComplemento();
-            Cidade cid2 = getCidade();
-            double salario = getValorHoraAula();
-            double planoSaude = getQtdHoraTrabalhadas();
+            Endereco endereco2 = getEndereco();
+            Departamento departamento2 = getDepartamento();
+            double salario2 = getSalarioBase();
+            double planoSaude2 = getPlanoSaude();
 
-            Departamento departamento = getDepartamento();
+            Substituto substituto = new Substituto(matricula1, nome1, titulacao1, endereco1, hora1, trabalho1);
+            Concursado concursado = new Concursado(matricula2, nome2, titulacao2, endereco2, salario2, planoSaude2);
 
-            Endereco endereco2 = new Endereco(
-                    log2,
-                    n2,
-                    comp2,
-                    cid2);
-
-            Substituto substituto = new Substituto(matricula1, nome1, titulacao1, endereco1, HA, Htrab);
-            Concursado concursado = new Concursado(matricula2, nome2, titulacao2, endereco2, salario, planoSaude);
-            JOptionPane.showMessageDialog(null, "Nome:" + substituto.getNome() + "\nTitulação:" + substituto.calcularSalario(10, 30),
-                    "Lista de Professores", JOptionPane.INFORMATION_MESSAGE);
-            departamento1.adicionarProfessor(concursado);
+            Departamento departamento1 = getDepartamento();
             departamento1.adicionarProfessor(substituto);
+            departamento1.adicionarProfessor(concursado);
+            departamento1.removerProfessor(substituto);
+            departamento1.adicionarProfessor(substituto);
+            departamento2.adicionarProfessor(concursado);
+            departamento2.removerProfessor(concursado);
+            departamento2.adicionarProfessor(concursado);
             departamento1.imprimirListaProfessores();
-
-
+            departamento2.imprimirListaProfessores();
         } catch (Exception e) {
             e.getStackTrace();
+            System.exit(13);
         }
     }
 
@@ -62,7 +45,7 @@ public class Main {
         try {
             planoSaude = Double.parseDouble(JOptionPane.showInputDialog("Insira o valor do plano de saúde"));
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "O plano de saúde deve ser um número, sendo ele inteiro e positivo",
+            JOptionPane.showMessageDialog(null, "O plano de saúde deve ser um número inteiro e positivo.",
                     "Erro", JOptionPane.ERROR_MESSAGE);
             System.exit(12);
         }
@@ -74,7 +57,7 @@ public class Main {
         try {
             salario = Double.parseDouble(JOptionPane.showInputDialog("Insira o salário"));
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "O salário deve ser um número, sendo ele inteiro e positivo",
+            JOptionPane.showMessageDialog(null, "O salário deve ser um número inteiro e positivo.",
                     "Erro", JOptionPane.ERROR_MESSAGE);
             System.exit(11);
         }
@@ -86,7 +69,7 @@ public class Main {
         try {
             horas = Double.parseDouble(JOptionPane.showInputDialog("Insira a quantidade de horas trabalhadas"));
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "A quantidade de horas trabalhadas deve ser um número, sendo ele inteiro e positivo",
+            JOptionPane.showMessageDialog(null, "A quantidade de horas trabalhadas deve ser um número inteiro e positivo.",
                     "Erro", JOptionPane.ERROR_MESSAGE);
             System.exit(10);
         }
@@ -98,7 +81,7 @@ public class Main {
         try {
             valor = Double.parseDouble(JOptionPane.showInputDialog("Insira o valor da Hora/Aula"));
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "O valor da hora/aula deve ser um número, sendo ele inteiro e positivo",
+            JOptionPane.showMessageDialog(null, "O valor da hora/aula deve ser um número inteiro e positivo.",
                     "Erro", JOptionPane.ERROR_MESSAGE);
             System.exit(9);
         }
@@ -106,7 +89,7 @@ public class Main {
     }
 
     private static Endereco getEndereco() {
-        return new Endereco(getLogradouro(), getNumero(), getComplemento(), getCidade());
+        return new Endereco(getLogradouro(), getNumero(), getComplemento(), getCidadeFixo());
     }
 
     private static int getNumero() {
@@ -115,7 +98,7 @@ public class Main {
             numero = Integer.parseInt(JOptionPane.showInputDialog("Insira o número"));
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "O número deve ser um número, sendo ele inteiro e positivo",
+            JOptionPane.showMessageDialog(null, "O número do endereço deve ser um número inteiro e positivo.",
                     "Erro", JOptionPane.ERROR_MESSAGE);
             System.exit(8);
         }
@@ -131,29 +114,26 @@ public class Main {
     }
 
     private static Departamento getDepartamento() {
-        Departamento dass = new Departamento("DASS", "TI");
-        Departamento dacc = new Departamento("DACC", "Contrução Civil");
-        Departamento daltec = new Departamento("DALTEC", "Ensino Médio");
-        Object[] departamentos = {dass.getNome(), dacc.getNome(), daltec.getNome()};
-        int departamento = (int) JOptionPane.showInputDialog(null,
-                "Escolha um item", "Opçao",
+        Object[] departamentos = {"DASS", "DACC", "DALTEC"};
+
+        String valor = (String) JOptionPane.showInputDialog(null,
+                "Escolha um item", "Opção",
                 JOptionPane.INFORMATION_MESSAGE, null,
                 departamentos, departamentos[0]);
 
-        Departamento dpt;
-        switch (departamento) {
-            case 0 -> {
-                dpt = dass;
-            }
-            case 1 -> {
-                dpt = dacc;
-            }
-            case 2 -> {
-                dpt = daltec;
-            }
-            default -> throw new IllegalStateException("Unexpected value: " + departamento);
+        switch (valor) {
+            case "DASS":
+                Departamento dass = new Departamento("DASS", "TI");
+                return dass;
+            case "DACC":
+                Departamento dacc = new Departamento("DACC", "Contrução Civil");
+                return dacc;
+            case "DALTEC":
+                Departamento daltec = new Departamento("DALTEC", "Ensino Médio");
+                return daltec;
+            default:
+                throw new IllegalStateException("Unexpected value: " + valor);
         }
-        return dpt;
     }
 
     private static String getNome() {
@@ -165,7 +145,7 @@ public class Main {
         try {
             matricula = Integer.parseInt(JOptionPane.showInputDialog("Insira a matrícula do professor"));
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "A matrícula deve ser um número, sendo ele inteiro e positivo",
+            JOptionPane.showMessageDialog(null, "A matrícula deve ser um número inteiro e positivo.",
                     "Erro", JOptionPane.ERROR_MESSAGE);
             System.exit(7);
         }
@@ -180,31 +160,25 @@ public class Main {
                 titulacoes, titulacoes[0]);
     }
 
-    private static Cidade getCidade() {
-        Cidade fln = new Cidade(1, "Florianópolis", "SC");
-        Cidade sj = new Cidade(2, "São José", "SC");
-        Cidade plc = new Cidade(3, "Palhoça", "SC");
-        Object[] cidades = {fln.getNome(), sj.getNome(), plc.getNome()};
+    private static Cidade getCidadeFixo() {
+        Object[] cidades = {"Florianópolis", "São José", "Palhoça"};
 
-        int cidade = (int) JOptionPane.showInputDialog(null,
-                "Escolha um item", "Opção",
-                JOptionPane.INFORMATION_MESSAGE, null,
+        String valor = (String) JOptionPane.showInputDialog(null,
+                "Escolha uma cidade", "Opção",
+                JOptionPane.QUESTION_MESSAGE, null,
                 cidades, cidades[0]);
 
-        Cidade cidadeSelecionada;
-
-        switch (cidade) {
-            case 0 -> {
-                cidadeSelecionada = fln;
+        switch (valor) {
+            case "Florianópolis" -> {
+                return new Cidade(1, "Florianópolis", "SC");
             }
-            case 1 -> {
-                cidadeSelecionada = sj;
+            case "São José" -> {
+                return new Cidade(2, "São José", "SC");
             }
-            case 2 -> {
-                cidadeSelecionada = plc;
+            case "Palhoça" -> {
+                return new Cidade(3, "Palhoça", "SC");
             }
-            default -> throw new IllegalStateException("Unexpected value: " + cidade);
+            default -> throw new IllegalStateException("Unexpected value: " + valor);
         }
-        return cidadeSelecionada;
     }
 }
